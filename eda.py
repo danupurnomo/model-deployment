@@ -1,12 +1,20 @@
 import streamlit as st
-import seaborn as sns
 import pandas as pd
-import numpy as np
+import seaborn as sns
 import matplotlib.pyplot as plt
+import plotly.express as px
+from PIL import Image
+import numpy as np
+
+st.set_page_config(
+    page_title='FIFA 2022 - EDA',
+    layout='wide',
+    initial_sidebar_state='expanded'
+)
 
 def run():
-    # Membuat Ttile
-    st.title('Exploratory Data Analysis - EDA')
+    # Membuat Title
+    st.title('FIFA 2022 Player rating Prediction')
 
     # Membuat Sub Header
     st.subheader('EDA untuk Analisa Dataset FIFA 2022')
@@ -14,12 +22,16 @@ def run():
     # Membuat Deskripsi
     st.write('Page ini dibuat oleh *Danu Purnomo*')
 
+    # Menambahkan Gambar
+    image = Image.open('soccer.jpg')
+    st.image(image, caption='FIFA 2022')
+
     # Membuat Garis Lurus
     st.markdown('---')
 
     # Magic Syntax
     '''
-    Pada page kali ini, penulis akan melakukan eksplorasi sederhana.
+    Pada page kali ini, penulis akan melakukan eskplorasi sederhana.
     Dataset yang digunakan adalah dataset FIFA 2022.
     Dataset ini berasal dari web sofifa.com.
     '''
@@ -40,12 +52,17 @@ def run():
     sns.histplot(data['Overall'], bins=30, kde=True)
     st.pyplot(fig)
 
-    # Membuat Histogram berdasarkan Input User
+    # Membuat Histogram Berdasarkan Input User
     st.write('#### Histogram berdasarkan Input User')
-    opt = st.selectbox('Pilih Column : ', ('Age', 'Weight', 'Height', 'ShootingTotal'))
-    fig = plt.figure(figsize=(15,5))
-    sns.histplot(data[opt], bins=30, kde=True)
+    pilihan = st.selectbox('Pilih Column : ', ('Age', 'Weight', 'Height', 'ShootingTotal'))
+    fig = plt.figure(figsize=(15, 5))
+    sns.histplot(data[pilihan], bins=30, kde=True)
     st.pyplot(fig)
+
+    # Membuat Plotly Plot
+    st.write('#### Plotly Plot - ValueEUR dengan Overall')
+    fig = px.scatter(data, x='ValueEUR', y='Overall', hover_data=['Name', 'Age'])
+    st.plotly_chart(fig)
 
 if __name__ == '__main__':
     run()
