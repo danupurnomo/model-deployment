@@ -3,8 +3,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
-from PIL import Image
-import numpy as np
+from PIL import Image 
 
 st.set_page_config(
     page_title='FIFA 2022 - EDA',
@@ -14,24 +13,27 @@ st.set_page_config(
 
 def run():
     # Membuat Title
-    st.title('FIFA 2022 Player rating Prediction')
+    st.title('FIFA 2022 Player Rating Prediction')
 
     # Membuat Sub Header
     st.subheader('EDA untuk Analisa Dataset FIFA 2022')
 
-    # Membuat Deskripsi
-    st.write('Page ini dibuat oleh *Danu Purnomo*')
-
     # Menambahkan Gambar
-    image = Image.open('soccer.jpg')
+    image  = Image.open('soccer.jpg')
     st.image(image, caption='FIFA 2022')
+
+    # Menambahkan Deskripsi
+    st.write('Page ini dibuat oleh *Danu Purnomo*')
+    st.write('# Halo')
+    st.write('## Halo')
+    st.write('### Halo')
 
     # Membuat Garis Lurus
     st.markdown('---')
 
     # Magic Syntax
     '''
-    Pada page kali ini, penulis akan melakukan eskplorasi sederhana.
+    Pada page kali ini, penulis akan melakukan eksplorasi sederhana. 
     Dataset yang digunakan adalah dataset FIFA 2022.
     Dataset ini berasal dari web sofifa.com.
     '''
@@ -40,7 +42,7 @@ def run():
     data = pd.read_csv('https://raw.githubusercontent.com/ardhiraka/FSDS_Guidelines/master/p1/v3/w1/P1W1D1PM%20-%20Machine%20Learning%20Problem%20Framing.csv')
     st.dataframe(data)
 
-    # Membuat BarPlot
+    # Membuat Barplot
     st.write('#### Plot AttackingWorkRate')
     fig = plt.figure(figsize=(15, 5))
     sns.countplot(x='AttackingWorkRate', data=data)
@@ -54,8 +56,8 @@ def run():
 
     # Membuat Histogram Berdasarkan Input User
     st.write('#### Histogram berdasarkan Input User')
-    pilihan = st.selectbox('Pilih Column : ', ('Age', 'Weight', 'Height', 'ShootingTotal'))
-    fig = plt.figure(figsize=(15, 5))
+    pilihan = st.selectbox('Pilih column : ', ('Age', 'Weight', 'Height', 'ShootingTotal'))
+    fig = plt.figure(figsize=(15,5))
     sns.histplot(data[pilihan], bins=30, kde=True)
     st.pyplot(fig)
 
@@ -63,6 +65,7 @@ def run():
     st.write('#### Plotly Plot - ValueEUR dengan Overall')
     fig = px.scatter(data, x='ValueEUR', y='Overall', hover_data=['Name', 'Age'])
     st.plotly_chart(fig)
+
 
 if __name__ == '__main__':
     run()
